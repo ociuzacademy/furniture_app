@@ -1,0 +1,85 @@
+{% extends 'user/user_index.html' %}
+{% block content %}
+<style>
+    .product-details-container {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-details h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .product-details p {
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+
+    .product-details strong {
+        color: #495057;
+    }
+
+    .btn-custom {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-custom-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-custom-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn-custom-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="product-details-container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid product-image" alt="{{ product.name }}">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h1>{{ product.product_name }}</h1>
+                    <p><strong>Category:</strong> {{ product.category }}</p>
+                    <p><strong>Price:</strong> ₹{{ product.price }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <p class="product-quantity">Quantity: ₹{{ product.quantity }}</p>
+                    <div class="mt-4">
+                        <a href="{% url 'buy_now' 'furniture' product.id %}" class="btn btn-primary">Book Now</a>
+
+                        <a href="{% url 'furniture' %}" class="btn btn-custom btn-custom-secondary">Back to Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

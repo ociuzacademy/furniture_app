@@ -1,0 +1,125 @@
+{% extends 'user/user_index.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Display success message if any -->
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <!-- Product Card -->
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-lg border-light">
+                <div class="row g-0">
+                    <!-- Product Image (Smaller Size) -->
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid rounded-start"
+                            alt="{{ product.product_name }}" style="max-height: 400px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary fw-bold">{{ product.product_name }}</h5>
+                            <p class="card-text"><strong>Category:</strong> <span class="text-muted">{{ product.category }}</span></p>
+                            <p class="card-text">
+                                <strong>Price:</strong>
+                                <span class="text-success">₹<span id="price">{{ product.price }}</span></span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Total Price:</strong>
+                                <span class="text-success">₹<span id="totalPrice">{{ product.price }}</span></span>
+                            </p>
+
+                                <!-- Quantity Control
+                                <div class="mb-4">
+                                    <label for="quantity" class="form-label"><strong>Quantity</strong></label>
+                                    <div class="input-group w-75">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="decreaseQuantity">-</button>
+                                        <input type="number" id="quantity" name="quantity" class="form-control text-center"
+                                            value="1" min="1" required>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="increaseQuantity">+</button>
+                                    </div>
+                                </div> -->
+
+                            <!-- Purchase Form -->
+                            <form method="POST" class="mt-4">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Buyer Name</label>
+                                    <input type="text" name="buyer_name" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" name="phone_number" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Delivery Location</label>
+                                    <textarea name="delivery_location" class="form-control" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Quantity</label>
+                                    <input type="number" name="quantity" min="1" value="1" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Confirm Purchase</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get elements
+    const quantityInput = document.getElementById('quantity');
+    const priceElement = document.getElementById('price');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const increaseButton = document.getElementById('increaseQuantity');
+    const decreaseButton = document.getElementById('decreaseQuantity');
+
+    // Get the price of the product
+    const price = parseFloat(priceElement.innerText);
+
+    // Update total price
+    function updateTotalPrice() {
+        const quantity = parseInt(quantityInput.value);
+        const totalPrice = price * quantity;
+        totalPriceElement.innerText = totalPrice.toFixed(2); // Display total price with two decimal places
+    }
+
+    // Increase quantity
+    increaseButton.addEventListener('click', function () {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        updateTotalPrice();
+    });
+
+    // Decrease quantity
+    decreaseButton.addEventListener('click', function () {
+        if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+            updateTotalPrice();
+        }
+    });
+
+    // Update total price on manual input
+    quantityInput.addEventListener('input', function () {
+        if (quantityInput.value < 1) {
+            quantityInput.value = 1; // Ensure quantity is at least 1
+        }
+        updateTotalPrice();
+    });
+</script>
+
+{% endblock %}

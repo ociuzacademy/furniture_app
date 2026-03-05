@@ -1,0 +1,38 @@
+{% extends 'seller/seller_index.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Seller Profile</h2>
+
+    {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+    <div class="card p-4 shadow">
+
+        <div class="text-center mb-4">
+            {% if seller.profile_picture %}
+                <img src="{{ seller.profile_picture.url }}" 
+                     style="width:150px;height:150px;border-radius:50%;object-fit:cover;">
+            {% else %}
+                <p>No Profile Image</p>
+            {% endif %}
+        </div>
+
+        <p><strong>Name:</strong> {{ seller.name }}</p>
+        <p><strong>Email:</strong> {{ seller.email }}</p>
+        <p><strong>Phone:</strong> {{ seller.number }}</p>
+        <p><strong>Shop Name:</strong> {{ seller.shop_name }}</p>
+        <p><strong>Shop Address:</strong> {{ seller.shop_address }}</p>
+        <p><strong>GST Number:</strong> {{ seller.gst_number|default:"-" }}</p>
+        <p><strong>License Number:</strong> {{ seller.license_number|default:"-" }}</p>
+        <p><strong>Status:</strong> {{ seller.status }}</p>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'seller_edit' %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

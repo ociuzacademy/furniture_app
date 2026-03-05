@@ -1,0 +1,67 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Registered Users</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                
+                <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                
+                    <td>
+                        {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" 
+                                 class="rounded-circle" width="50" height="50">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.number }}</td>
+                
+                    <td>
+                        {% if user.status == "active" %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-danger">Blocked</span>
+                        {% endif %}
+                    </td>
+                
+                    <td>
+                        {% if user.status == "active" %}
+                            <a href="{% url 'block_user' %}?id={{user.id}}" 
+                               class="btn btn-warning btn-sm">Block</a>
+                        {% else %}
+                            <a href="{% url 'unblock_user' %}?id={{user.id}}" 
+                               class="btn btn-success btn-sm">Unblock</a>
+                        {% endif %}
+                
+                        <a href="{% url 'delete_user' %}?id={{user.id}}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Are you sure you want to delete this user?');">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

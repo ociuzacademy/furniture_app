@@ -1,0 +1,68 @@
+{% extends 'seller/seller_index.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Edit Profile</h2>
+
+    {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST" class="shadow p-4 bg-light rounded">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" value="{{ seller.name }}">
+        </div>
+
+        <div class="mb-3">
+            <label>Email (Cannot Change)</label>
+            <input type="email" class="form-control" value="{{ seller.email }}" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="number" class="form-control" value="{{ seller.number }}">
+        </div>
+
+        <div class="mb-3">
+            <label>Shop Name</label>
+            <input type="text" name="shop_name" class="form-control" value="{{ seller.shop_name }}">
+        </div>
+
+        <div class="mb-3">
+            <label>Shop Address</label>
+            <textarea name="shop_address" class="form-control">{{ seller.shop_address }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>GST Number</label>
+            <input type="text" name="gst_number" class="form-control" value="{{ seller.gst_number }}">
+        </div>
+
+        <div class="mb-3">
+            <label>License Number</label>
+            <input type="text" name="license_number" class="form-control" value="{{ seller.license_number }}">
+        </div>
+
+        <hr>
+
+        <h5>Change Password (Optional)</h5>
+
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="New Password">
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

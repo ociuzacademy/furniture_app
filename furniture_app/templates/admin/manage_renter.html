@@ -1,0 +1,144 @@
+{% extends "admin/admin_index.html" %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Manage Renter</h1>
+            <p>Approve or reject registrations for the platform.</p>
+        </div>
+
+        <!-- Pending Renters -->
+        <h2 class="mb-4">Pending Renters</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Business Name</th>
+                        <th>Rental Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                        <th>Profile</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for renter in pending_renters %}
+                    <tr>
+                        <td>{{ renter.name }}</td>
+                        <td>{{ renter.email }}</td>
+                        <td>{{ renter.number }}</td>
+                        <td>{{ renter.rental_business_name }}</td>
+                        <td>{{ renter.rental_address }}</td>
+                        <td>{{ renter.gst_number|default:"-" }}</td>
+                        <td>{{ renter.license_number|default:"-" }}</td>
+                        <td>{{ renter.status }}</td>
+                        <td>
+                            {% if renter.profile_picture %}
+                                <img src="{{ renter.profile_picture.url }}" 
+                                     style="height:40px;width:40px;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'approve_renter' %}?id={{renter.id}}" class="btn btn-success btn-sm">Approve</a>
+                            <a href="{% url 'reject_renter' %}?id={{renter.id}}" class="btn btn-danger btn-sm">Reject</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Approved Renters -->
+        <h2 class="mt-5 mb-4">Approved Renters</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Business Name</th>
+                        <th>Rental Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for renter in approved_renters %}
+                    <tr>
+                        <td>{{ renter.name }}</td>
+                        <td>{{ renter.email }}</td>
+                        <td>{{ renter.number }}</td>
+                        <td>{{ renter.rental_business_name }}</td>
+                        <td>{{ renter.rental_address }}</td>
+                        <td>{{ renter.gst_number|default:"-" }}</td>
+                        <td>{{ renter.license_number|default:"-" }}</td>
+                        <td>{{ renter.status }}</td>
+                        <td>
+                            {% if renter.profile_picture %}
+                                <img src="{{ renter.profile_picture.url }}" 
+                                     style="height:40px;width:40px;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Rejected Renters -->
+        <h2 class="mt-5 mb-4">Rejected Renters</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Business Name</th>
+                        <th>Rental Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for renter in rejected_renters %}
+                    <tr>
+                        <td>{{ renter.name }}</td>
+                        <td>{{ renter.email }}</td>
+                        <td>{{ renter.number }}</td>
+                        <td>{{ renter.rental_business_name }}</td>
+                        <td>{{ renter.rental_address }}</td>
+                        <td>{{ renter.gst_number|default:"-" }}</td>
+                        <td>{{ renter.license_number|default:"-" }}</td>
+                        <td>{{ renter.status }}</td>
+                        <td>
+                            {% if renter.profile_picture %}
+                                <img src="{{ renter.profile_picture.url }}" 
+                                     style="height:40px;width:40px;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

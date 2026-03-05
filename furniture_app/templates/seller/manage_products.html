@@ -1,0 +1,74 @@
+{% extends 'seller/seller_index.html'%}
+{% block content %}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Manage Products</h1>
+        <p>View, edit, and delete your product listings.</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price (INR)</th>
+                    <th>Quantity</th>
+                    <th>Image</th>  <!-- Added column for image -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" style="width: 100px; height: auto;">
+                        {% else %}
+                            <span>No Image</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_products' product.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_furniture' product.id %}" class="btn btn-sm btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">No products found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="text-center mt-4">
+        <a href="{% url 'add_furniture' %}" class="btn btn-success">Add New Product</a>
+    </div> -->
+</div>
+
+<style>
+    .table-responsive {
+        margin-top: 20px;
+    }
+    .btn-primary:hover {
+        background-color: #24ab4f;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    .btn-success {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'user/user_index.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg">
+        <div class="card-body text-center">
+            <h2 class="card-title text-success mb-4">Order Confirmation</h2>
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+            <h3 class="my-4">Thank you for your order!</h3>
+            
+            <div class="order-details text-start mx-auto" style="max-width: 500px;">
+                <h4>Order Details</h4>
+                <p><strong>Product:</strong> {{ product_name }}</p>
+                <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+                <p><strong>Total Price:</strong> ₹{{ order.total_price }}</p>
+                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                <p><strong>Status:</strong> {{ order.status }}</p>
+                <p><strong>Delivery to:</strong> {{ order.delivery_location }}</p>
+            </div>
+            
+            <a href="{% url 'user_index' %}" class="btn btn-primary mt-4">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "admin/admin_index.html" %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Manage Seller</h1>
+            <p>Approve or reject registrations for the platform.</p>
+        </div>
+
+        <!-- Pending Sellers -->
+        <h2 class="mb-4">Pending Sellers</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Shop Name</th>
+                        <th>Shop Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seller in pending_sellers %}
+                    <tr>
+                        <td>
+                            {% if seller.profile_picture %}
+                                <img src="{{ seller.profile_picture.url }}" width="60" height="60">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ seller.name }}</td>
+                        <td>{{ seller.email }}</td>
+                        <td>{{ seller.number }}</td>
+                        <td>{{ seller.shop_name }}</td>
+                        <td>{{ seller.shop_address }}</td>
+                        <td>{{ seller.gst_number|default:"-" }}</td>
+                        <td>{{ seller.license_number|default:"-" }}</td>
+                        <td>{{ seller.status }}</td>
+                        <td>
+                            <a href="{% url 'approve_seller' %}?id={{seller.id}}" class="btn btn-success btn-sm">Approve</a>
+                            <a href="{% url 'reject_seller' %}?id={{seller.id}}" class="btn btn-danger btn-sm">Reject</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Approved Sellers -->
+        <h2 class="mt-5 mb-4">Approved Sellers</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Shop Name</th>
+                        <th>Shop Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seller in approved_sellers %}
+                    <tr>
+                        <td>
+                            {% if seller.profile_picture %}
+                                <img src="{{ seller.profile_picture.url }}" width="60" height="60">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ seller.name }}</td>
+                        <td>{{ seller.email }}</td>
+                        <td>{{ seller.number }}</td>
+                        <td>{{ seller.shop_name }}</td>
+                        <td>{{ seller.shop_address }}</td>
+                        <td>{{ seller.gst_number|default:"-" }}</td>
+                        <td>{{ seller.license_number|default:"-" }}</td>
+                        <td>{{ seller.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Rejected Sellers -->
+        <h2 class="mt-5 mb-4">Rejected Sellers</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Shop Name</th>
+                        <th>Shop Address</th>
+                        <th>GST</th>
+                        <th>License</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seller in rejected_sellers %}
+                    <tr>
+                        <td>
+                            {% if seller.profile_picture %}
+                                <img src="{{ seller.profile_picture.url }}" width="60" height="60">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ seller.name }}</td>
+                        <td>{{ seller.email }}</td>
+                        <td>{{ seller.number }}</td>
+                        <td>{{ seller.shop_name }}</td>
+                        <td>{{ seller.shop_address }}</td>
+                        <td>{{ seller.gst_number|default:"-" }}</td>
+                        <td>{{ seller.license_number|default:"-" }}</td>
+                        <td>{{ seller.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

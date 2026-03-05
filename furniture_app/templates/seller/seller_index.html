@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Furniture Kada - Seller Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/static/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="{% url 'seller_index' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary">Furniture Kada - Seller</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{% url 'seller_index' %}" class="nav-item nav-link active">Dashboard</a>
+                <a href="{% url 'add_furniture' %}" class="nav-item nav-link">Add Product</a>
+                <a href="{% url 'manage_products' %}" class="nav-item nav-link">Manage Products</a>
+                <a href="{% url 'seller_bookings' %}" class="nav-item nav-link">Bookings</a>
+                <a href="{% url 'seller_profile' %}" class="nav-item nav-link">Profile</a>
+                <!-- <a href="" class="nav-item btn-outline-danger">Logout</a> -->
+            </div>
+            <div>
+                <a href="{% url 'index' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Logout<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+    {% block content %}
+    <!-- Dashboard Content Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h1 class="display-4">Seller Dashboard</h1>
+                <p>Manage your furniture shop efficiently with our easy-to-use tools.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-light rounded text-center p-4">
+                        <i class="fa fa-plus fa-3x text-primary mb-3"></i>
+                        <h4 class="mb-3">Add Products</h4>
+                        <p>Easily add new furniture products to your shop's catalog.</p>
+                        <a href="{% url 'add_furniture' %}" class="btn btn-primary">Add Now</a>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-light rounded text-center p-4">
+                        <i class="fa fa-edit fa-3x text-primary mb-3"></i>
+                        <h4 class="mb-3">Manage Products</h4>
+                        <p>Update or remove products from your shop's catalog.</p>
+                        <a href="{% url 'manage_products' %}" class="btn btn-primary">Manage</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-light rounded text-center p-4">
+                        <i class="fa fa-user fa-3x text-primary mb-3"></i>
+                        <h4 class="mb-3">Profile</h4>
+                        <p>Update your shop's profile details and contact information.</p>
+                        <a href="{% url 'seller_profile' %}" class="btn btn-primary">Update Profile</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard Content End -->
+    {% endblock %}
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer mt-5 pt-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Address</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Quick Links</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/lib/wow/wow.min.js"></script>
+    <script src="/static/lib/easing/easing.min.js"></script>
+    <script src="/static/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/lib/counterup/counterup.min.js"></script>
+    <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="/static/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

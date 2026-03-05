@@ -1,0 +1,62 @@
+{% extends 'user/user_index.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">Edit Profile</h1>
+        <p class="lead text-muted">Update your profile information below.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+                {% csrf_token %}
+
+                <!-- Profile Picture -->
+                <div class="mb-3 text-center">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" class="img-thumbnail rounded-circle mb-2"
+                             style="width: 120px; height: 120px; object-fit: cover;">
+                    {% else %}
+                        <img src="https://via.placeholder.com/120" class="img-thumbnail rounded-circle mb-2">
+                    {% endif %}
+                    <input type="file" name="profile_picture" class="form-control mt-2">
+                </div>
+
+                <!-- Name -->
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" value="{{ user.name }}">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" name="number" value="{{ user.number }}">
+                </div>
+
+                <!-- Address -->
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" name="address" rows="3">{{ user.address }}</textarea>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" name="confirm_password">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

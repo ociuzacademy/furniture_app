@@ -1,0 +1,30 @@
+    {% extends "user/user_index.html" %}
+
+    {% block content %}
+    <h1>Available Products</h1>
+
+    {% if products %}
+        <div class="container">
+            {% for product in products %}
+                <div class="product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.product_name }}" style="height: 250px; object-fit: cover;">
+                    {% else %}
+                        <img src="default-image.jpg" alt="Default Image">
+                    {% endif %}
+                    <div class="product-info">
+                        <h2 class="product-title">{{ product.product_name }}</h2>
+                        <!-- <p class="product-description">{{ product.description }}</p> -->
+                        <p class="product-price">Price: ₹{{ product.price }}</p>
+                        <!-- <p class="product-quantity">Quantity: ₹{{ product.quantity }}</p> -->
+                        <!-- <p class="product-type">Type: {{ product.get_product_type_display }}</p> -->
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Details</a>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+    {% endblock %}

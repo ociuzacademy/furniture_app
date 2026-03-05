@@ -1,0 +1,53 @@
+{% extends 'seller/seller_index.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">My Sold Bookings</h2>
+
+    {% if bookings %}
+        <div class="row">
+            {% for booking in bookings %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        {% if booking.furniture_product.image %}
+                            <img src="{{ booking.furniture_product.image.url }}" class="card-img-top product-image" alt="{{ booking.furniture_product.product_name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h6>{{ booking.furniture_product.product_name }}</h6>
+                            <p><strong>Category:</strong> {{ booking.furniture_product.category }}</p>
+                            <p><strong>Status:</strong> {{ booking.status }}</p>
+                            <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
+                            <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+
+                            {% if booking.status == "Pending" or booking.status == "Approved" or booking.status == "Rejected"  %}
+                                <form method="post" class="d-flex justify-content-between mt-3">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                    {% if booking.status != "Approved" %}
+                                        <button type="submit" name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                                    {% endif %}
+                                    {% if booking.status != "Rejected" %}
+                                        <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                                    {% endif %}
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            No sold bookings found.
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .product-image {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+</style>
+{% endblock %}

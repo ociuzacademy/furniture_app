@@ -1,0 +1,73 @@
+{% extends 'renter/renter_index.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="text-primary">My Profile</h2>
+    </div>
+
+    <div class="row">
+        <!-- Profile Image -->
+        <div class="col-md-4 text-center">
+            {% if renter.profile_picture %}
+                <img src="{{ renter.profile_picture.url }}" 
+                     class="rounded-circle img-thumbnail"
+                     width="180" height="180"
+                     style="object-fit: cover;">
+            {% else %}
+                <img src="https://via.placeholder.com/180"
+                     class="rounded-circle img-thumbnail">
+            {% endif %}
+        </div>
+
+        <!-- Details -->
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <td>{{ renter.name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ renter.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ renter.number }}</td>
+                </tr>
+                <tr>
+                    <th>Business Name</th>
+                    <td>{{ renter.rental_business_name }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ renter.rental_address }}</td>
+                </tr>
+                <tr>
+                    <th>GST</th>
+                    <td>{{ renter.gst_number|default:"-" }}</td>
+                </tr>
+                <tr>
+                    <th>License</th>
+                    <td>{{ renter.license_number|default:"-" }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        {% if renter.is_approved %}
+                            <span class="badge bg-success">Approved</span>
+                        {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+
+            <a href="{% url 'renter_edit' %}" class="btn btn-primary">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

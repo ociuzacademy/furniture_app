@@ -1,0 +1,56 @@
+{% extends "seller/seller_index.html" %}
+{% block content %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Add New Furniture</h1>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label for="product_name" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" id="category" name="category" required>
+                        <option value="">Select Category</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Price (INR)</label>
+                    <input type="number" class="form-control" id="price" name="price" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" required>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="product_image" class="form-label">Product Image</label>
+                    <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*" required>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="description" class="form-label">Product Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="col-md-12 text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "seller/seller_index.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Product</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="product_name">Product Name:</label>
+            <input type="text" class="form-control" id="product_name" name="product_name" 
+                   value="{{ product.product_name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select class="form-control" id="category" name="category" required>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if product.category.id == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image:</label>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="Product Image" class="img-thumbnail mb-3" width="150">
+            {% endif %}
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="{{ product.quantity }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{ product.price }}">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required>{{ product.description }}</textarea>
+        </div><br>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'manage_products' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
